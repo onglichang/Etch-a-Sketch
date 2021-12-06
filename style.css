@@ -12,3 +12,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.black-box {
+  background-color: black;
+}
