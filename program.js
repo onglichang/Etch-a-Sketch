@@ -1,8 +1,25 @@
+// Handle colour change options
+const vintageBtn = document.getElementById("vintage");
+let pointerColourClass = "vintage"; 
+vintageBtn.addEventListener('click', changeToVintage);
+
+function changeToVintage() {
+    pointerColourClass = "vintage";
+}
+
+const rgbButton = document.getElementById("RGB");
+rgbButton.addEventListener('click', changeToRgb);
+
+function changeToRgb() {
+    pointerColourClass = "RGB"
+}
+
 // Handle slider set up
 const slider = document.getElementById("myRange");
 const output = document.getElementById("slider-output");
 let gridValue = slider.value;
 output.innerHTML = gridValue + " x " + gridValue;
+// When slider value is changed, display it and change active grid size;
 slider.oninput = function() {
     gridValue = this.value;
     output.innerHTML = gridValue + " x " + gridValue;
@@ -20,7 +37,7 @@ clearBtn.addEventListener("click", clearGrid);
 function clearGrid() {
     for (let i=0; i < container.childElementCount; i++) {
         for (let j=0; j < container.children[i].childElementCount; j++) {
-            container.children[i].children[j].setAttribute('class', 'clear-box');
+            container.children[i].children[j].style.backgroundColor = "white";
         }
     }
 
@@ -48,7 +65,11 @@ createGrid(gridValue);
 
 // Set up hover effect so that grid divs change color when mouse passes over them
 function changeColor(e) {
-    e.target.setAttribute('class', 'black-box');
+    if (pointerColourClass == "vintage") {
+        e.target.style.backgroundColor = "black";
+    } else {
+        e.target.style.backgroundColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+    }
 }
 
 function deleteCurrentGrid() {
