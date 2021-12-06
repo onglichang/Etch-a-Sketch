@@ -1,8 +1,14 @@
 // Handle slider set up
 const slider = document.getElementById("myRange");
-let output = document.getElementById("slider-output");
+const output = document.getElementById("slider-output");
 let gridValue = slider.value;
 output.innerHTML = gridValue + " x " + gridValue;
+slider.oninput = function() {
+    gridValue = this.value;
+    output.innerHTML = gridValue + " x " + gridValue;
+    deleteCurrentGrid();
+    createGrid(gridValue);
+}
 
 // Inside body of container div, insert 16x16 grid of squre divs
 const container = document.querySelector('.container');
@@ -19,9 +25,6 @@ function clearGrid() {
     }
 
 }
-
-
-
 
 function createGrid(noOfSquares) {
     for (let i=0; i < noOfSquares; i++) {
@@ -46,4 +49,8 @@ createGrid(gridValue);
 // Set up hover effect so that grid divs change color when mouse passes over them
 function changeColor(e) {
     e.target.setAttribute('class', 'black-box');
+}
+
+function deleteCurrentGrid() {
+    container.textContent = '';
 }
